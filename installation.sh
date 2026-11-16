@@ -1,69 +1,20 @@
-# 1. Install Python 3.12 and virtual environment support
-sudo apt update
-sudo apt install -y python3.12 python3.12-venv
 
-# 2. Create the project directory
-mkdir -p ~/DeepLearning
-cd ~/DeepLearning
+python3 -m pip install --upgrade pip
 
-# 3. Create and activate a virtual environment
-python3.12 -m venv --system-site-packages .venv
-source .venv/bin/activate
+# Install Deep Learning frameworks
+pip3 install torch torchvision torchaudio
+pip3 install tensorflow keras
 
-# 4. Upgrade Python packaging tools
-python -m pip install --upgrade pip setuptools wheel
+# Install libraries required
+pip3 install numpy pandas matplotlib scikit-learn
 
-# 5. Install TensorFlow (CPU), Keras and common DL libraries
-python -m pip install \
-    tensorflow-cpu==2.20.0 \
-    keras \
-    numpy \
-    pandas \
-    matplotlib \
-    seaborn \
-    scikit-learn \
-    scipy \
-    pillow \
-    wfdb
+# Install JupyterLab and Notebook
+python3 -m pip install --user jupyterlab notebook
 
-# 6. Install CPU-only PyTorch and Torchvision
-python -m pip install torch torchvision \
-    --index-url https://download.pytorch.org/whl/cpu
+# Install and register Jupyter kernel
+python3 -m pip install --user ipykernel
 
-# 7. Install Jupyter Notebook, JupyterLab and kernel support
-python -m pip install jupyterlab notebook ipykernel
+python3 -m ipykernel install --user \
+    --name=deeplearning \
+    --display-name "Python 3.10 (Deep Learning)"
 
-# 8. Register the virtual environment as a Jupyter kernel
-python -m ipykernel install --user \
-    --name deeplearning \
-    --display-name "Python (Deep Learning)"
-
-# 9. Verify installations
-python - <<'PY'
-import tensorflow as tf
-import keras
-import torch
-import torchvision
-import numpy as np
-import pandas as pd
-import matplotlib
-import sklearn
-import wfdb
-
-print("TensorFlow:", tf.__version__)
-print("Keras:", keras.__version__)
-print("PyTorch:", torch.__version__)
-print("Torchvision:", torchvision.__version__)
-print("NumPy:", np.__version__)
-print("Pandas:", pd.__version__)
-print("Scikit-learn:", sklearn.__version__)
-print("TensorFlow GPU:", tf.config.list_physical_devices("GPU"))
-print("PyTorch GPU:", torch.cuda.is_available())
-print("\nAll imports successful.")
-PY
-
-# 10. Check package dependencies
-python -m pip check
-
-# 11. Launch JupyterLab
-jupyter lab
